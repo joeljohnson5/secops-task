@@ -33,15 +33,14 @@ jobs:
       run: bandit -r . -x tests -s B101
 
     - name: Build Docker image
-      run: docker build -t ghcr.io/youruser/secure-api:${{ github.sha }} .
+      run: docker build -t secure-api:${{ github.sha }} .
 
     - name: Trivy vulnerability scan
       uses: aquasecurity/trivy-action@0.24.0
       with:
-        image-ref: ghcr.io/youruser/secure-api:${{ github.sha }}
+        image-ref: secure-api:${{ github.sha }}
         format: 'table'
         exit-code: '0'   # don't fail build on findings, just report
-
 
     # Optional: Deploy to EKS (placeholder)
     - name: Deploy to EKS (kubectl apply)
