@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pydantic
+pytest
+flake8
+bandit
+boto3
+pymysql
+requests

@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  secops-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Lint (flake8)
+      run: flake8 .
+
+    - name: Unit tests (pytest)
+      run: pytest
+
+    - name: SAST scan (Bandit)
+      run: bandit -r .
+
+    - name: Build Docker image
+      run: docker build -t ghcr.io/youruser/secure-api:${{ github.sha }} .
+
+    - name: Trivy vulnerability scan
+      uses: aquasecurity/trivy-action@0.24.0
+      with:
+        image-ref: ghcr.io/youruser/secure-api:${{ github.sha }}
+        format: 'table'
+        exit-code: '0'   # don't fail build on findings, just report
+
+    - name: Login to GitHub Container Registry
+      if: github.ref == 'refs/heads/main'
+      run: |
+        echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+    - name: Push image to GHCR
+      if: github.ref == 'refs/heads/main'
+      run: |
+        docker push ghcr.io/youruser/secure-api:${{ github.sha }}
+
+    # Optional: Deploy to EKS (placeholder)
+    - name: Deploy to EKS (kubectl apply)
+      if: github.ref == 'refs/heads/main'
+      run: |
+        echo "kubectl apply -f kubernetes/"  # document deployment steps in README

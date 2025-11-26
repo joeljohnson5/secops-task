@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-api-rds
+  namespace: prod
+spec:
+  podSelector:
+    matchLabels:
+      app: api
+  policyTypes:
+    - Egress
+  egress:
+  - to:
+    - ipBlock:
+        cidr: 10.0.2.0/24   
+    ports:
+    - protocol: TCP
+      port: 3306
