@@ -1,13 +1,18 @@
-import os
 import sys
-
-# Make sure Python can find main.py in the parent folder
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+from pathlib import Path
 
 from fastapi.testclient import TestClient
-from main import app
+
+# Ensure project root (where main.py lives) is on PYTHONPATH
+ROOT_DIR = Path(__file__).resolve().parents[1]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.append(str(ROOT_DIR))
+
+from main import app  # noqa: E402
+
 
 client = TestClient(app)
+
 
 def test_create_item():
     response = client.post("/items", json={"name": "book", "price": 12.5})
@@ -16,6 +21,7 @@ def test_create_item():
     assert body["status"] == "success"
     assert body["item"]["name"] == "book"
     assert body["item"]["price"] == 12.5
+
 
 def test_list_items():
     response = client.get("/items")
