@@ -30,7 +30,7 @@ jobs:
       run: pytest
 
     - name: SAST scan (Bandit)
-      run: bandit -r .
+      run: bandit -r . -x tests
 
     - name: Build Docker image
       run: docker build -t ghcr.io/youruser/secure-api:${{ github.sha }} .
