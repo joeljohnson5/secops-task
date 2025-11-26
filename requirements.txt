@@ -7,3 +7,8 @@ bandit
 boto3
 pymysql
 requests
+fastapi
+uvicorn
+pydantic
+pytest
+httpx
