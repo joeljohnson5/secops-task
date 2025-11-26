@@ -42,10 +42,6 @@ jobs:
         format: 'table'
         exit-code: '0'   # don't fail build on findings, just report
 
-    - name: Push image to GHCR
-      if: github.ref == 'refs/heads/main'
-      run: |
-        docker push ghcr.io/youruser/secure-api:${{ github.sha }}
 
     # Optional: Deploy to EKS (placeholder)
     - name: Deploy to EKS (kubectl apply)
