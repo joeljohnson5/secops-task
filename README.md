@@ -2,7 +2,7 @@ SecOps Test – FastAPI Security Project
 
 This repository contains a small FastAPI application designed to demonstrate secure API development, basic DevSecOps practices, and security testing. The project focuses on building the API locally, validating inputs, running automated tests, packaging the app using Docker, and including sample Kubernetes and Terraform files.
 
-*** Architecture ***
+Architecture 
 
 This project uses a lightweight, local-first architecture:
 
@@ -77,11 +77,12 @@ What I Did NOT Deploy (But Included as Design)
 
 Since this is a learning project, I did not deploy full AWS infrastructure such as EKS, WAF, or GuardDuty. However, I included the required Terraform IaC and Kubernetes manifests to demonstrate understanding of how the system would operate in a real cloud environment.
 
-*** Local Setup Instructions ***
+Local Setup Instructions
 
 1. Create and activate a virtual environment
+
 python -m venv venv
-venv\Scripts\activate   # Windows
+venv\Scripts\activate   (for Windows)
 
 2. Install dependencies
 pip install -r requirements.txt
@@ -92,10 +93,11 @@ uvicorn main:app --reload --port 9000
 4. Open Swagger UI
 http://127.0.0.1:9000/docs
 
+/items
 http://127.0.0.1:9000/items
 
 
-*** Running Tests ***
+Running Tests
 
 pytest
 
@@ -116,7 +118,7 @@ Missing Authentication
 The API is intentionally open for testing. In production, a token-based system or API gateway would be required.
 
 Rate Limiting
-No built-in rate limiting — would normally be handled at gateway/WAF layer.
+No built-in rate limiting would normally be handled at gateway/WAF layer.
 
 HTTPS/TLS
 Local HTTP only; production would require TLS termination.
@@ -136,7 +138,7 @@ Executes unit tests
 Ensures code doesn't break unexpectedly
 Deployment automation (CD) is not implemented but is supported via Docker + Kubernetes manifests for future extension.
 
-*** Repository Structure ***
+Repository Structure 
 
 secops-task/
 ├── main.py
@@ -150,4 +152,4 @@ secops-task/
 └── README.md            # this documentation
 
 
-*** While the cloud infrastructure is not deployed, all required components are included in Terraform and explained clearly. ***
+ While the cloud infrastructure is not deployed, all required components are included in Terraform and explained clearly. 
