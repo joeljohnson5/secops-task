@@ -1,6 +1,6 @@
 SecOps Test – FastAPI Security Project
 
-This repository contains a small FastAPI application designed to demonstrate secure API development, basic DevSecOps practices, and security testing. The project focuses on building the API locally, validating inputs, running automated tests, packaging the app using Docker, and including sample Kubernetes and Terraform files.
+This repository contains a small FastAPI application designed to demonstrate secure API development, basic DevSecOps practices, and security testing. The project focuses on building the API locally, validating inputs, running tests, packaging the app using Docker, and including sample Kubernetes and Terraform files.
 
 Architecture 
 
